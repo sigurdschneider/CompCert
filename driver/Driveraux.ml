@@ -21,10 +21,12 @@ let safe_remove file =
 (* Invocation of external tools *)
 
 let rec waitpid_no_intr pid =
-  try Unix.waitpid [] pid
-  with Unix.Unix_error (Unix.EINTR, _, _) -> waitpid_no_intr pid
+(*  try Unix.waitpid [] pid
+  with Unix.Unix_error (Unix.EINTR, _, _) -> waitpid_no_intr pid*)
+  raise (Sys_error "waitpid called")
 
 let command stdout args =
+  (*
   let argv = Array.of_list args in
   assert (Array.length argv > 0);
   try
@@ -46,6 +48,8 @@ let command stdout args =
     eprintf "Error executing '%s': %s: %s %s\n"
             argv.(0) fn (Unix.error_message err) param;
     -1
+    *)
+  raise (Sys_error "external command executed")
 
 let command ?stdout args =
   if !option_v then begin

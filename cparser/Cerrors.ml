@@ -33,7 +33,7 @@ let diagnostics_show_option = ref true
 let color_diagnostics =
   let term = try Sys.getenv "TERM" with Not_found -> "" in
   let activate = try
-      (Unix.isatty Unix.stderr && term <> "dumb" && term <>"")
+      ((*Unix.isatty Unix.stderr &&*) term <> "dumb" && term <>"")
     with _ -> false in
   ref activate
 
